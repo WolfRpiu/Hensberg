@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hensberg-RP | FiveM Rollenspiel Server</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #0f0f0f;
+            color: #fff;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("https://cdn.discordapp.com/icons/1182345107647762502/a_3bb7c9467f8b5f74b1768c8ee521b553.gif?size=1024&width=768&height=768") center/cover no-repeat;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+        }
+        
+        nav {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 0;
+            z-index: 2;
+        }
+        
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #fff;
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: #3498db;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 30px;
+        }
+        
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: #3498db;
+        }
+        
+        .header-content h1 {
+            font-size: 50px;
+            margin-bottom: 20px;
+        }
+        
+        .header-content p {
+            font-size: 20px;
+            max-width: 700px;
+            margin-bottom: 30px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            text-decoration: none;
+            transition: 0.3s;
+            cursor: pointer;
+            margin: 10px;
+        }
+        
+        .btn:hover {
+            background: #2980b9;
+        }
+        
+        .discord-btn {
+            background: #7289DA;
+        }
+        
+        .discord-btn:hover {
+            background: #5f73bc;
+        }
+        
+        .buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        
+        section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-title h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 20px;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: #3498db;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-box {
+            background: #1a1a1a;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            transition: 0.3s;
+        }
+        
+        .feature-box:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .feature-box i {
+            font-size: 40px;
+            color: #3498db;
+            margin-bottom: 20px;
+        }
+        
+        .feature-box h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+        
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+        
+        .about-img {
+            overflow: hidden;
+            border-radius: 10px;
+        }
+        
+        .about-img img {
+            width: 100%;
+            transition: 0.5s;
+        }
+        
+        .about-img:hover img {
+            transform: scale(1.1);
+        }
+        
+        .about-text h3 {
+            font-size: 30px;
+            margin-bottom: 20px;
+        }
+        
+        .server-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .stat-box {
+            background: #1a1a1a;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .stat-box h4 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        
+        .stat-box p {
+            font-size: 36px;
+            font-weight: bold;
+            color: #3498db;
+        }
+        
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .gallery-item {
+            height: 250px;
+            overflow: hidden;
+            border-radius: 10px;
+            position: relative;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.5s;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        .join-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .step-box {
+            background: #1a1a1a;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .step-number {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 40px;
+            background: #3498db;
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .step-box h3 {
+            margin-top: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .team {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .team-member {
+            background: #1a1a1a;
+            border-radius: 10px;
+            overflow: hidden;
+            text-align: center;
+        }
+        
+        .team-img {
+            height: 250px;
+            overflow: hidden;
+        }
+        
+        .team-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .team-info {
+            padding: 20px;
+        }
+        
+        .team-info h3 {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+        
+        .team-info p {
+            color: #3498db;
+            margin-bottom: 15px;
+        }
+        
+        .discord-id {
+            font-size: 14px;
+            color: #aaa;
+            margin-bottom: 15px;
+        }
+        
+        .social-links a {
+            display: inline-block;
+            margin: 0 5px;
+            color: #fff;
+            font-size: 18px;
+            transition: 0.3s;
+        }
+        
+        .social-links a:hover {
+            color: #3498db;
+        }
+        
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .contact-box {
+            background: #1a1a1a;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .contact-box i {
+            font-size: 30px;
+            color: #3498db;
+            margin-bottom: 20px;
+        }
+        
+        .contact-box h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .contact-box p {
+            margin-bottom: 10px;
+        }
+        
+        .contact-box a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        
+        footer {
+            background: #0a0a0a;
+            padding: 30px 0;
+            text-align: center;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links a {
+            color: #fff;
+            margin: 0 15px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: #3498db;
+        }
+        
+        .copyright {
+            color: #777;
+            font-size: 14px;
+        }
+        
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+            
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .header-content h1 {
+                font-size: 36px;
+            }
+            
+            .header-content p {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <a href="#" class="logo">Hensberg<span>RP</span></a>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#about">Über uns</a></li>
+                <li><a href="#gallery">Galerie</a></li>
+                <li><a href="#join">Mitmachen</a></li>
+                <li><a href="#team">Team</a></li>
+                <li><a href="#contact">Kontakt</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header id="home">
+        <div class="header-content">
+            <h1>Willkommen bei Hensberg-RP</h1>
+            <p>Tauche ein in eine authentische Rollenspiel-Erfahrung auf unserem FiveM Server. Erschaffe deinen eigenen Charakter und werde Teil unserer lebendigen Community.</p>
+            <div class="buttons">
+                <a href="#join" class="btn">Jetzt mitmachen</a>
+                <a href="https://discord.gg/KX65CwYhTf" target="_blank" class="btn discord-btn">Discord beitreten</a>
+            </div>
+        </div>
+    </header>
+
+    <section id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Unsere Features</h2>
+                <p>Entdecke was Hensberg-RP zu einem besonderen Rollenspiel-Erlebnis macht</p>
+            </div>
+            <div class="features">
+                <div class="feature-box">
+                    <i>🏢</i>
+                    <h3>Realistische Wirtschaft</h3>
+                    <p>Ein ausgeklügeltes Wirtschaftssystem mit Jobs, Unternehmen und dynamischen Marktpreisen.</p>
+                </div>
+                <div class="feature-box">
+                    <i>🚓</i>
+                    <h3>Polizei & Medizin</h3>
+                    <p>Werde Teil unserer Polizei oder des Rettungsdienstes und helfe der Gemeinschaft.</p>
+                </div>
+                <div class="feature-box">
+                    <i>🏘️</i>
+                    <h3>Immobiliensystem</h3>
+                    <p>Kaufe und personalisiere Häuser, Wohnungen und Geschäfte in der ganzen Stadt.</p>
+                </div>
+                <div class="feature-box">
+                    <i>🚗</i>
+                    <h3>Einzigartige Fahrzeuge</h3>
+                    <p>Über 200 individuell angepasste Fahrzeuge mit realistischer Handhabung.</p>
+                </div>
+                <div class="feature-box">
+                    <i>🎭</i>
+                    <h3>Tiefgründiges RP</h3>
+                    <p>Charakterentwicklung, Hintergrundgeschichten und eine engagierte Community.</p>
+                </div>
+                <div class="feature-box">
+                    <i>📱</i>
+                    <h3>Custom Handys</h3>
+                    <p>Eigene Handy-App mit Messaging, Banking und mehr für ein realistisches Erlebnis.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="bg-light">
+        <div class="container">
+            <div class="section-title">
+                <h2>Über Hensberg-RP</h2>
+                <p>Erfahre mehr über unseren Server und unsere Community</p>
+            </div>
+            <div class="about-content">
+                <div class="about-img">
+                    <img src="https://cdn.discordapp.com/icons/1182345107647762502/a_3bb7c9467f8b5f74b1768c8ee521b553.gif?size=1024&width=768&height=768" alt="Hensberg-RP Server">
+                </div>
+                <div class="about-text">
+                    <h3>Eine einzigartige Rollenspiel-Erfahrung</h3>
+                    <p>Hensberg-RP wurde 2023 gegründet mit dem Ziel, ein authentisches und immersives Rollenspiel-Erlebnis in GTA V zu schaffen. Unser Server zeichnet sich durch eine freundliche Community, engagierte Administratoren und regelmäßige Updates aus.</p>
+                    <p>Wir legen besonderen Wert auf qualitativ hochwertiges Rollenspiel und haben strenge Regeln, um sicherzustellen, dass jeder Spieler eine angenehme Erfahrung hat. Unsere erfahrenen Moderatoren sind immer bereit zu helfen und für Fragen zur Verfügung zu stehen.</p>
+                    <p>Mit über 100 aktiven Spielern täglich bietet Hensberg-RP eine lebendige und dynamische Welt, in der du deine Rollenspiel-Fantasien ausleben kannst.</p>
+                    <a href="https://discord.gg/KX65CwYhTf" target="_blank" class="btn discord-btn">Unserem Discord beitreten</a>
+                </div>
+            </div>
+            <div class="server-stats">
+                <div class="stat-box">
+                    <h4>Aktive Spieler</h4>
+                    <p>100+</p>
+                </div>
+                <div class="stat-box">
+                    <h4>Discord-Mitglieder</h4>
+                    <p>2.500+</p>
+                </div>
+                <div class="stat-box">
+                    <h4>Custom Jobs</h4>
+                    <p>30+</p>
+                </div>
+                <div class="stat-box">
+                    <h4>Server-Uptime</h4>
+                    <p>99.9%</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery">
+        <div class="container">
+            <div class="section-title">
+                <h2>Galerie</h2>
+                <p>Eindrücke aus der Welt von Hensberg-RP</p>
+            </div>
+            <div class="gallery">
+                <div class="gallery-item">
+                    <img src="/api/placeholder/400/250" alt="Hensberg-RP Stadtbild">
+                </div>
+                <div class="gallery-item">
+                    <img src="/api/placeholder/400/250" alt="Polizei von Hensberg">
+                </div>
+                <div class="gallery-item">
+                    <img src="/api/placeholder/400/250" alt="Fahrzeugsammlung">
+                </div>
+                <div class="gallery-item">
+                    <img src="/api/placeholder/400/250" alt="Hensberg bei Nacht">
+                </div>
+                <div class="gallery-item">
+                    <img src="/api/placeholder/400/250" alt="Luxusyacht">
+                </div>
+                <div class="gallery-item">
+                    <img src="/api/placeholder/400/250" alt="Rollenspiel-Event">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="join" class="bg-light">
+        <div class="container">
+            <div class="section-title">
+                <h2>Wie du mitmachen kannst</h2>
+                <p>Folge diesen einfachen Schritten, um Teil von Hensberg-RP zu werden</p>
+            </div>
+            <div class="join-steps">
+                <div class="step-box">
+                    <div class="step-number">1</div>
+                    <h3>Tritt unserem Discord bei</h3>
+                    <p>Unser Discord ist der zentrale Ort für alle Informationen und Community-Interaktionen.</p>
+                    <a href="https://discord.gg/KX65CwYhTf" target="_blank" class="btn discord-btn">Discord beitreten</a>
+                </div>
+                <div class="step-box">
+                    <div class="step-number">2</div>
+                    <h3>FiveM installieren</h3>
+                    <p>Falls noch nicht geschehen, lade den FiveM Client herunter und installiere ihn.</p>
+                    <a href="https://fivem.net/" class="btn">FiveM herunterladen</a>
+                </div>
+                <div class="step-box">
+                    <div class="step-number">3</div>
+                    <h3>Charakter erstellen</h3>
+                    <p>Fülle unser Whitelist-Formular aus und erstelle deinen einzigartigen Charakter.</p>
+                    <a href="#" class="btn">Zum Formular</a>
+                </div>
+                <div class="step-box">
+                    <div class="step-number">4</div>
+                    <h3>Server beitreten</h3>
+                    <p>Nach der Genehmigung deiner Bewerbung kannst du direkt auf den Server.</p>
+                    <a href="fivem://connect/play.hensberg-rp.de" class="btn">Server beitreten</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="team">
+        <div class="container">
+            <div class="section-title">
+                <h2>Unser Team</h2>
+                <p>Lerne die Menschen kennen, die Hensberg-RP möglich machen</p>
+            </div>
+            <div class="team">
+                <div class="team-member">
+                    <div class="team-img">
+                        <img src="/api/placeholder/400/400" alt="HB | Tim">
+                    </div>
+                    <div class="team-info">
+                        <h3>HB | Tim</h3>
+                        <p>Projektinhaber</p>
+                        <div class="discord-id">Discord: 940995921045516328</div>
+                        <div class="social-links">
+                            <a href="#">🌐</a>
+                            <a href="#">📱</a>
+                            <a href="#">📸</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="team-img">
+                        <img src="/api/placeholder/400/400" alt="HB | Dobbs">
+                    </div>
+                    <div class="team-info">
+                        <h3>HB | Dobbs</h3>
+                        <p>Projektinhaber</p>
+                        <div class="discord-id">Discord: 504206248854552576</div>
+                        <div class="social-links">
+                            <a href="#">🌐</a>
+                            <a href="#">📱</a>
+                            <a href="#">📸</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="team-img">
+                        <img src="/api/placeholder/400/400" alt="HB | Naffi">
+                    </div>
+                    <div class="team-info">
+                        <h3>HB | Naffi</h3>
+                        <p>Projektleitung</p>
+                        <div class="discord-id">Discord: 283950160805888002</div>
+                        <div class="social-links">
+                            <a href="#">🌐</a>
+                            <a href="#">📱</a>
+                            <a href="#">📸</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="team-img">
+                        <img src="/api/placeholder/400/400" alt="HB | WolfRP">
+                    </div>
+                    <div class="team-info">
+                        <h3>HB | WolfRP</h3>
+                        <p>Projektmanagement</p>
+                        <div class="discord-id">Discord: 1241092880026701934</div>
+                        <div class="social-links">
+                            <a href="#">🌐</a>
+                            <a href="#">📱</a>
+                            <a href="#">📸</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="team-img">
+                        <img src="/api/placeholder/400/400" alt="HB | RUFO">
+                    </div>
+                    <div class="team-info">
+                        <h3>HB | RUFO</h3>
+                        <p>Designer</p>
+                        <div class="discord-id">Discord: 829371423042437131</div>
+                        <div class="social-links">
+                            <a href="#">🌐</a>
+                            <a href="#">📱</a>
+                            <a href="#">📸</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="team-img">
+                        <img src="/api/placeholder/400/400" alt="HB | Kallzone">
+                    </div>
+                    <div class="team-info">
+                        <h3>HB | Kallzone</h3>
+                        <p>Admin</p>
+                        <div class="discord-id">Discord: 617831767163797716</div>
+                        <div class="social-links">
+                            <a href="#">🌐</a>
+                            <a href="#">📱</a>
+                            <a href="#">📸</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="bg-light">
+        <div class="container">
+            <div class="section-title">
+                <h2>Kontaktiere uns</h2>
+                <p>Hast du Fragen? Wir sind für dich da</p>
+            </div>
+            <div class="contact-info">
+                <div class="contact-box">
+                    <i>📧</i>
+                    <h3>E-Mail</h3>
+                    <p>Für allgemeine Anfragen:</p>
+                    <a href="mailto:info@hensberg-rp.de">info@hensberg-rp.de</a>
+                </div>
+                <div class="contact-box">
+                    <i>🎮</i>
+                    <h3>Discord</h3>
+                    <p>Für schnelle Antworten und Support:</p>
+                    <a href="https://discord.gg/KX65CwYhTf" target="_blank">discord.gg/KX65CwYhTf</a>
+                </div>
+                <div class="contact-box">
+                    <i>📊</i>
+                    <h3>Serverstatistiken</h3>
+                    <p>Aktuelle Auslastung:</p>
+                    <a href="#">stats.hensberg-rp.de</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="#">Datenschutz</a>
+                <a href="#">Impressum</a>
+                <a href="#">Regeln</a>
+                <a href="#">FAQ</a>
+                <a href="#">Support</a>
+            </div>
+            <p class="copyright">© 2025 Hensberg-RP. Alle Rechte vorbehalten. Nicht mit Rockstar Games oder Take-Two Interactive verbunden.</p>
+        </div>
+    </footer>
+</body>
+</html>
